@@ -37,7 +37,7 @@
             <StackLayout Orientation="Vertical" Padding="16,40,16,40" Spacing="10">
                 <Label Text="CPSC 4025 WQ20"></Label>
                 <Label Text="Jonathan Pangelinan"></Label>
-                <Label Text="1/21/2020 - 2:57pm"></Label>
+                <Label x:Name="CurrentDateTime"></Label>
             </StackLayout>
         </ScrollView>
     </Grid>
