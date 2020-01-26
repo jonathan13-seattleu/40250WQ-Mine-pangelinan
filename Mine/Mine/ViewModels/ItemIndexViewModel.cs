@@ -98,6 +98,27 @@ namespace Mine.ViewModels
             return result;
         }
 
+        /// <summary>
+        /// API to update the Data
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public async Task<bool> Update(ItemModel data)
+        {
+            // Check that the record exists. If it does not, then exit with false.
+            var record = await Read(data.Id);
+            if (record == null)
+                return false;
+
+            record.Update(data);
+
+            var result = await DataStore.UpdateAsync(record);
+
+            await ExecuteLoadDataCommand();
+
+            return result;
+        }
+
         #region Refresh
         // Return True if a refresh is needed
         // It sets the refresh flag to false
