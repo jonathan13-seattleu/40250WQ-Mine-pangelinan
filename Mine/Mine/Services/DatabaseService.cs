@@ -1,7 +1,10 @@
 ﻿using Mine.Models;
+using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Mine.Services
 {
@@ -15,7 +18,7 @@ namespace Mine.Services
         static SQLiteAsyncConnection Database => lazyInitializer.Value;
         static bool initialized = false;
 
-        public ItemModelDatabase()
+        public DatabaseService()
         {
             InitializeAsync().SafeFireAndForget(false);
         }
