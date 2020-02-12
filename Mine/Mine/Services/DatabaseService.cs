@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mine.Services
 {
-    public class DatabaseService 
+    public class DatabaseService : IDataStore<ItemModel>
     {
         static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() =>
         {
@@ -107,7 +107,7 @@ namespace Mine.Services
         /// Return all records in the database
         /// </summary>
         /// <returns></returns>
-        public async Task<List<ItemModel>> IndexAsync()
+        public async Task<List<ItemModel>> IndexAsync(bool forceRefresh = false)
         {
             return await Database.Table<ItemModel>().ToListAsync();
         }
