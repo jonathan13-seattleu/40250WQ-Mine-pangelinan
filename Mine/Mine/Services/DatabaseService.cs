@@ -102,5 +102,14 @@ namespace Mine.Services
 
             return (result == 1);
         }
+
+        /// <summary>
+        /// Return all records in the database
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<ItemModel>> IndexAsync()
+        {
+            return await Database.Table<ItemModel>().ToListAsync();
+        }
     }
 }
