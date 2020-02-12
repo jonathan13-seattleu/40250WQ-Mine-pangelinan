@@ -84,5 +84,23 @@ namespace Mine.Services
 
             return (result == 1);
         }
+
+        /// <summary>
+        /// Delete the record of the ID passed in
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteAsync(string id)
+        {
+            var data = await ReadAsync(id);
+            if (data == null)
+            {
+                return false;
+            }
+
+            var result = await Database.DeleteAsync(data);
+
+            return (result == 1);
+        }
     }
 }
