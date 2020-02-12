@@ -66,5 +66,23 @@ namespace Mine.Services
 
             return data;
         }
+
+        /// <summary>
+        /// Update the record passed in if it exists
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateAsync(ItemModel data)
+        {
+            var myRead = await ReadAsync(((ItemModel)(object)data).Id);
+            if (myRead == null)
+            {
+                return false;
+            }
+
+            var result = await Database.UpdateAsync(data);
+
+            return (result == 1);
+        }
     }
 }
