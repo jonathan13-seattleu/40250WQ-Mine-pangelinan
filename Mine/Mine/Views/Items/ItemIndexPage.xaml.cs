@@ -28,7 +28,7 @@ namespace Mine.Views
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemIndexViewModel();
+            BindingContext = viewModel = ItemIndexViewModel.Instance;
         }
 
         /// <summary>
