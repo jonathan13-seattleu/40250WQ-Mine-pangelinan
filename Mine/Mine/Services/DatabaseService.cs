@@ -40,10 +40,10 @@ namespace Mine.Services
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<bool> CreateAsync(ItemModel data)
+        public Task<bool> CreateAsync(ItemModel data)
         {
-            var result = await Database.InsertAsync(data);
-            return (result == 1);
+            Database.InsertAsync(data);
+            return Task.FromResult(true);
         }
 
         /// <summary>
@@ -51,20 +51,9 @@ namespace Mine.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ItemModel> ReadAsync(string id)
+        public Task<ItemModel> ReadAsync(string id)
         {
-            ItemModel data;
-
-            try
-            {
-                data = await Database.Table<ItemModel>().Where((ItemModel arg) => ((ItemModel)(object)arg).Id.Equals(id)).FirstOrDefaultAsync();
-            }
-            catch (Exception)
-            {
-                data = default(ItemModel);
-            }
-
-            return data;
+            return Database.Table<ItemModel>().Where(i => i.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
         /// <summary>
@@ -72,17 +61,18 @@ namespace Mine.Services
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<bool> UpdateAsync(ItemModel data)
+        public Task<bool> UpdateAsync(ItemModel Data)
         {
-            var myRead = await ReadAsync(((ItemModel)(object)data).Id);
+            var myRead = ReadAsync(Data.Id).GetAwaiter().GetResult();
             if (myRead == null)
             {
-                return false;
+                return Task.FromResult(false);
+
             }
 
-            var result = await Database.UpdateAsync(data);
+            Database.UpdateAsync(Data);
 
-            return (result == 1);
+            return Task.FromResult(true);
         }
 
         /// <summary>
@@ -90,26 +80,41 @@ namespace Mine.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteAsync(string id)
+        public Task<bool> DeleteAsync(string id)
         {
-            var data = await ReadAsync(id);
-            if (data == null)
+            // Check if it exists...
+            var myRead = ReadAsync(id).GetAwaiter().GetResult();
+            if (myRead == null)
             {
-                return false;
+                return Task.FromResult(false);
+
             }
 
-            var result = await Database.DeleteAsync(data);
+            // Then delete...
 
-            return (result == 1);
+            Database.DeleteAsync(myRead);
+            return Task.FromResult(true);
         }
 
         /// <summary>
         /// Return all records in the database
         /// </summary>
         /// <returns></returns>
-        public async Task<List<ItemModel>> IndexAsync(bool forceRefresh = false)
+        public Task<List<ItemModel>> IndexAsync(bool flag = false)
         {
-            return await Database.Table<ItemModel>().ToListAsync();
+            return Database.Table<ItemModel>().ToListAsync();
+        }
+
+        // Delete the Datbase Tables by dropping them
+        public async void DeleteTables()
+        {
+            await Database.DropTableAsync<ItemModel>();
+        }
+
+        // Create the Datbase Tables
+        public async void CreateTables()
+        {
+            await Database.CreateTableAsync<ItemModel>();
         }
     }
 }
