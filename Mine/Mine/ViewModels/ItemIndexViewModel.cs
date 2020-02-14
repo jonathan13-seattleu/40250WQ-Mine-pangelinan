@@ -100,6 +100,12 @@ namespace Mine.ViewModels
             {
                 SetDataSource(data);
             });
+
+            // Register the Wipe Data List Message
+            MessagingCenter.Subscribe<AboutPage, bool>(this, "WipeDataList", (obj, data) =>
+            {
+                WipeDataList();
+            });
         }
 
         public bool SetDataSource(int isSQL)
