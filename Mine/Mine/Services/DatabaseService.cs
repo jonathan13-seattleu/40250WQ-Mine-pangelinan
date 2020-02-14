@@ -116,5 +116,11 @@ namespace Mine.Services
         {
             await Database.CreateTableAsync<ItemModel>();
         }
+
+        public void WipeDataList()
+        {
+            Database.DropTableAsync<ItemModel>().GetAwaiter().GetResult();
+            Database.CreateTablesAsync(CreateFlags.None, typeof(ItemModel)).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
     }
 }

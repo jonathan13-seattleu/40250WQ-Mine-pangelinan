@@ -99,5 +99,11 @@ namespace Mine.Services
         {
             return await Task.FromResult(datalist);
         }
+
+        public void WipeDataList()
+        {
+            datalist.Clear();
+            LoadDefaultData();
+        }
     }
 }
