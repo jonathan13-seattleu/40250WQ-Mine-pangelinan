@@ -65,6 +65,27 @@
                     />
 
                 </StackLayout>
+
+                <StackLayout 
+                    Orientation="Horizontal" 
+                    VerticalOptions="Center"
+                    Padding="50,0,0,0"
+                    >
+
+                    <Label 
+                    HorizontalOptions="Start" 
+                    VerticalOptions="Center"
+                    Text="Wipe Data List" 
+                    />
+
+                    <Button
+                    HorizontalOptions="Start" 
+                    VerticalOptions="Center"
+                    Text="Wipe"
+                    Clicked="WipeDataList_Clicked"
+                    />
+
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </Grid>
