@@ -50,6 +50,7 @@ namespace Mine.ViewModels
         /// Connection to the Data store
         /// </summary>
         //public IDataStore<ItemModel> DataStore => DependencyService.Get<IDataStore<ItemModel>>();
+
         public IDataStore<ItemModel> DataSource_Mock => new MockDataStore();
         public IDataStore<ItemModel> DataSource_SQL => new DatabaseService();
 
@@ -86,6 +87,12 @@ namespace Mine.ViewModels
             MessagingCenter.Subscribe<ItemDeletePage, ItemModel>(this, "Delete", async (obj, data) =>
             {
                 await Delete(data as ItemModel);
+            });
+
+            // Register the Update Message
+            MessagingCenter.Subscribe<ItemUpdatePage, ItemModel>(this, "Update", async (obj, data) =>
+            {
+                await Update(data as ItemModel);
             });
         }
 
