@@ -24,6 +24,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
@@ -35,9 +36,35 @@
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="16,40,16,40" Spacing="10">
-                <Label Text="CPSC 4025 WQ20"></Label>
+                <Label Text="CPSC 4250 WQ20"></Label>
                 <Label Text="Jonathan Pangelinan"></Label>
                 <Label x:Name="CurrentDateTime"></Label>
+            </StackLayout>
+        </ScrollView>
+
+        <ScrollView Grid.Row="2">
+            <StackLayout Orientation="Vertical">
+                <StackLayout 
+                    Orientation="Horizontal" 
+                    VerticalOptions="Center"
+                    Padding="50,0,0,0"
+                    >
+
+                    <Label 
+                    HorizontalOptions="Start" 
+                    VerticalOptions="Center"
+                    Text="SQL Data Source" 
+                    />
+
+                    <Switch
+                    HorizontalOptions="Start" 
+                    VerticalOptions="Center"
+                    x:Name="DataSourceValue"
+                    IsToggled="{Binding ItemIndexViewModel.Instance.CurrentDataSource}"
+                    Toggled="DataSource_Toggled" 
+                    />
+
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </Grid>
